@@ -14,14 +14,19 @@ A comprehensive guide to mastering Go for web development, cloud native systems,
 6. [Tools: Your Arsenal](#tools-your-arsenal)
 7. [Development Setup](#development-setup)
 8. [Specialization Tracks](#specialization-tracks)
-   - [Track A: Web Development & APIs](#track-a-web-development--apis)
-   - [Track B: Cloud Native & Kubernetes](#track-b-cloud-native--kubernetes)
-   - [Track C: Infrastructure & Distributed Systems](#track-c-infrastructure--distributed-systems)
-9. [Project Progression](#project-progression)
-10. [Open Source Study](#open-source-study)
-11. [Common Pitfalls](#common-pitfalls)
-12. [Daily Habits](#daily-habits)
-13. [12-Month Schedule](#12-month-schedule)
+9. [The Launchpad Project](#the-launchpad-project)
+   - [Phase 1: Foundation API](#phase-1-foundation-api-month-7)
+   - [Phase 2: App Deployment API](#phase-2-app-deployment-api-month-8)
+   - [Phase 3: First Kubernetes Controller](#phase-3-first-kubernetes-controller-month-9)
+   - [Phase 4: Connect API to Operator](#phase-4-connect-api-to-operator-month-10)
+   - [Phase 5: Advanced Operator Features](#phase-5-advanced-operator-features-month-11)
+   - [Phase 6: CLI & Production Polish](#phase-6-cli--production-polish-month-12)
+10. [Project Progression](#project-progression)
+11. [Open Source Study](#open-source-study)
+12. [Common Pitfalls](#common-pitfalls)
+13. [Daily Habits](#daily-habits)
+14. [12-Month Schedule](#12-month-schedule)
+15. [The Path to Cracked](#the-path-to-cracked)
 
 ---
 
@@ -533,15 +538,21 @@ run:
 
 ## Specialization Tracks
 
-After mastering Go fundamentals, choose one or more specialization tracks. Each has its own mental models, patterns, and ecosystem.
+After mastering Go fundamentals, you'll combine Web Development and Kubernetes through a unified project that grows in complexity.
 
 ---
 
-### Track A: Web Development & APIs
+### Combined Track: Web + Cloud Native
 
-Build APIs, web applications, and microservices. This is where most Go developers start in industry.
+This track builds one system progressively - a **Platform-as-a-Service (PaaS)** called **"Launchpad"** that lets developers deploy applications to Kubernetes. Each phase adds new capabilities and teaches new skills.
 
-#### Mental Models for Web Development
+By the end, you'll have built something similar to a simplified Heroku/Railway/Render - a complete platform with APIs, operators, real-time updates, and production observability.
+
+---
+
+### Mental Models You'll Learn
+
+#### From Web Development
 
 **1. Handler as Pure Function**
 ```go
@@ -604,63 +615,7 @@ func (s *UserService) Create(ctx context.Context, input CreateUserInput) (*User,
 }
 ```
 
-#### Web Development Projects
-
-**Project: REST API (Beginner)**
-Build a complete REST API for a domain (bookmarks, notes, todos):
-- CRUD operations with proper HTTP verbs
-- Input validation
-- Error handling with proper status codes
-- Database with PostgreSQL/SQLite
-- Authentication (JWT)
-- Rate limiting
-- OpenAPI documentation
-
-**Project: GraphQL Server (Intermediate)**
-Build a GraphQL API using gqlgen:
-- Schema-first development
-- Queries, mutations, subscriptions
-- DataLoader for N+1 prevention
-- Authentication/authorization
-- Pagination (cursor-based)
-- File uploads
-
-**Project: Real-time Application (Intermediate)**
-Build a chat or collaboration app:
-- WebSocket connections
-- Connection management and heartbeats
-- Pub/sub for message distribution
-- Presence (who's online)
-- Message persistence
-- Reconnection handling
-
-**Project: Microservices System (Advanced)**
-Build a multi-service system:
-- Multiple services communicating via gRPC
-- API gateway
-- Service discovery
-- Distributed tracing
-- Circuit breakers
-- Event-driven communication (NATS/Kafka)
-
-#### Web Development Reading
-
-| Order | Resource | Focus |
-|-------|----------|-------|
-| 1 | **"Let's Go"** | Web fundamentals |
-| 2 | **"Let's Go Further"** | REST APIs, deployment |
-| 3 | **Mat Ryer's blog posts** | Practical patterns |
-| 4 | **"Building Microservices with Go"** | Microservice patterns |
-| 5 | Study **chi** source code | Router design |
-| 6 | Study **gqlgen** source code | Code generation |
-
----
-
-### Track B: Cloud Native & Kubernetes
-
-Build Kubernetes controllers, operators, and cloud-native tooling. This is where Go truly dominates.
-
-#### Mental Models for Kubernetes Development
+#### From Kubernetes Development
 
 **1. The Reconciliation Loop**
 ```go
@@ -774,154 +729,667 @@ func (r *Reconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Resu
 }
 ```
 
-#### Kubernetes Development Projects
+---
 
-**Project: Simple Controller (Beginner)**
-Build a controller that watches ConfigMaps and does something:
-- Watch ConfigMaps with a specific label
-- When ConfigMap changes, update related Deployments
-- Handle edge cases (ConfigMap deleted, etc.)
-- Use kubebuilder to scaffold
+## The Launchpad Project
 
-**Project: Custom Resource + Controller (Intermediate)**
-Build a CRD with controller:
-- Define a new API type (e.g., `Database`, `Website`, `Backup`)
-- Controller creates child resources (Deployment, Service, etc.)
-- Status reflects actual state
-- Handle updates and deletes properly
-- Add validation webhooks
+**What you're building:** A Platform-as-a-Service that lets developers deploy applications to Kubernetes via API or CLI.
 
-**Project: Operator with External Resources (Intermediate)**
-Build an operator that manages external resources:
-- CRD represents external resource (cloud VM, database, etc.)
-- Controller provisions via external API
-- Handle external API failures
-- Implement finalizer for cleanup
-- Status sync from external state
+**Why this project:** It naturally combines REST APIs, real-time features, Kubernetes controllers, operators, and production patterns. Every phase teaches skills that build on the previous ones.
 
-**Project: Admission Webhook (Intermediate)**
-Build validating and mutating webhooks:
-- Validate resource specs against policies
-- Mutate resources (inject sidecars, add labels)
-- Handle webhook failures gracefully
-- Certificate management
-
-**Project: Multi-Cluster Operator (Advanced)**
-Build an operator that spans clusters:
-- Federated resource management
-- Cross-cluster service discovery
-- Consistent configuration across clusters
-- Handle network partitions
-
-#### Kubernetes Development Reading
-
-| Order | Resource | Focus |
-|-------|----------|-------|
-| 1 | **Kubernetes docs** - Concepts | Core understanding |
-| 2 | **kubebuilder book** (book.kubebuilder.io) | Building operators |
-| 3 | **"Programming Kubernetes"** | Deep dive |
-| 4 | **client-go examples** | Raw K8s client |
-| 5 | **controller-runtime source** | Framework internals |
-| 6 | Study **cert-manager** source | Production operator |
-| 7 | Study **ArgoCD** source | Complex operator |
-
-#### Kubernetes Development Tools Setup
-
-```bash
-# Essential tools
-brew install kind           # Local K8s clusters
-brew install kubectl        # K8s CLI
-brew install kubebuilder    # Scaffolding
-brew install kustomize      # Config management
-
-# Create a test cluster
-kind create cluster --name dev
-
-# Scaffold a new operator
-kubebuilder init --domain example.com --repo github.com/user/myoperator
-kubebuilder create api --group webapp --version v1 --kind Website
+**Architecture Overview:**
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                         Launchpad                                │
+├─────────────────────────────────────────────────────────────────┤
+│  CLI (launchpad)     │  Web Dashboard     │  REST/GraphQL API   │
+├─────────────────────────────────────────────────────────────────┤
+│                      API Server (Go)                             │
+│  - Auth (JWT)        - App management      - Real-time (WS)     │
+│  - Teams/Projects    - Deployments         - Logs streaming     │
+├─────────────────────────────────────────────────────────────────┤
+│                    Kubernetes Operators                          │
+│  - App Controller    - Build Controller   - Domain Controller   │
+├─────────────────────────────────────────────────────────────────┤
+│                       Kubernetes                                 │
+│  Deployments, Services, Ingress, ConfigMaps, Secrets            │
+└─────────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-### Track C: Infrastructure & Distributed Systems
+### Phase 1: Foundation API (Month 7)
 
-Build distributed databases, message queues, and infrastructure tooling.
+**Build:** Core REST API for user and project management
 
-#### Mental Models for Distributed Systems
+**Features:**
+- User registration and authentication (JWT)
+- Team creation and membership
+- Project CRUD operations
+- PostgreSQL database with migrations
+- Input validation
+- Structured logging
+- Health endpoints
 
-**1. Eventual Consistency**
+**Skills Learned:**
+- HTTP handlers and routing (chi)
+- Middleware (auth, logging, recovery)
+- Database patterns (sqlc or raw SQL)
+- JWT authentication
+- Configuration management (viper)
+- Testing (unit + integration)
+
+**Project Structure:**
+```
+launchpad/
+├── cmd/
+│   └── api/
+│       └── main.go
+├── internal/
+│   ├── api/
+│   │   ├── handler/
+│   │   │   ├── user.go
+│   │   │   ├── team.go
+│   │   │   └── project.go
+│   │   ├── middleware/
+│   │   │   ├── auth.go
+│   │   │   └── logging.go
+│   │   └── router.go
+│   ├── service/
+│   │   ├── user.go
+│   │   ├── team.go
+│   │   └── project.go
+│   ├── repository/
+│   │   ├── user.go
+│   │   ├── team.go
+│   │   └── project.go
+│   └── model/
+│       └── models.go
+├── pkg/
+│   └── auth/
+│       └── jwt.go
+├── migrations/
+├── go.mod
+└── Makefile
+```
+
+**Endpoints:**
+```
+POST   /api/v1/auth/register
+POST   /api/v1/auth/login
+GET    /api/v1/users/me
+POST   /api/v1/teams
+GET    /api/v1/teams
+POST   /api/v1/teams/:id/members
+POST   /api/v1/projects
+GET    /api/v1/projects
+GET    /api/v1/projects/:id
+PUT    /api/v1/projects/:id
+DELETE /api/v1/projects/:id
+```
+
+**Reading:**
+- "Let's Go" chapters 1-10
+- chi documentation
+- sqlc documentation
+
+---
+
+### Phase 2: App Deployment API (Month 8)
+
+**Build:** API for defining and triggering app deployments
+
+**Features:**
+- App definition (name, image, env vars, replicas, ports)
+- Deployment creation and management
+- Environment management (dev, staging, prod)
+- Secrets management
+- Deployment history
+- Rollback support
+
+**Skills Learned:**
+- Complex domain modeling
+- State machines (deployment states)
+- Validation with go-playground/validator
+- API versioning
+- Pagination and filtering
+- OpenAPI documentation (swaggo)
+
+**New Endpoints:**
+```
+POST   /api/v1/projects/:id/apps
+GET    /api/v1/projects/:id/apps
+GET    /api/v1/apps/:id
+PUT    /api/v1/apps/:id
+DELETE /api/v1/apps/:id
+
+POST   /api/v1/apps/:id/deployments
+GET    /api/v1/apps/:id/deployments
+GET    /api/v1/deployments/:id
+POST   /api/v1/deployments/:id/rollback
+
+POST   /api/v1/apps/:id/env
+GET    /api/v1/apps/:id/env
+PUT    /api/v1/apps/:id/env/:key
+DELETE /api/v1/apps/:id/env/:key
+```
+
+**App Model:**
 ```go
-// Embrace eventual consistency - don't fight it
-type EventuallyConsistentStore struct {
-    local  *sync.Map
-    peers  []string
-    events chan Event
+type App struct {
+    ID          string            `json:"id"`
+    ProjectID   string            `json:"projectId"`
+    Name        string            `json:"name"`
+    Image       string            `json:"image"`
+    Replicas    int32             `json:"replicas"`
+    Port        int32             `json:"port"`
+    Environment map[string]string `json:"environment"`
+    Status      AppStatus         `json:"status"`
+    CreatedAt   time.Time         `json:"createdAt"`
+    UpdatedAt   time.Time         `json:"updatedAt"`
 }
 
-func (s *EventuallyConsistentStore) Set(key string, value []byte) {
-    s.local.Store(key, value)
-    // Async replication - may fail, will eventually sync
-    go s.replicateToPeers(key, value)
+type Deployment struct {
+    ID        string           `json:"id"`
+    AppID     string           `json:"appId"`
+    Version   int              `json:"version"`
+    Image     string           `json:"image"`
+    Status    DeploymentStatus `json:"status"` // pending, building, deploying, running, failed
+    CreatedAt time.Time        `json:"createdAt"`
+    StartedAt *time.Time       `json:"startedAt"`
+    FinishedAt *time.Time      `json:"finishedAt"`
 }
 ```
 
-**2. Idempotency**
+**Reading:**
+- "Let's Go Further" chapters 1-15
+- OpenAPI 3.0 specification
+
+---
+
+### Phase 3: First Kubernetes Controller (Month 9)
+
+**Build:** Kubernetes controller that deploys apps based on CRD
+
+**Features:**
+- Custom Resource Definition (LaunchpadApp)
+- Controller watches LaunchpadApp resources
+- Creates Deployment, Service, Ingress for each app
+- Status reflects actual deployment state
+- Handles updates (rolling updates)
+- Handles deletes (cleanup)
+
+**Skills Learned:**
+- kubebuilder scaffolding
+- CRD design
+- Reconciliation loop
+- Owner references
+- Status subresource
+- Kubernetes client-go basics
+- envtest for testing
+
+**CRD Design:**
+```yaml
+apiVersion: launchpad.io/v1alpha1
+kind: LaunchpadApp
+metadata:
+  name: my-app
+  namespace: default
+spec:
+  image: nginx:latest
+  replicas: 3
+  port: 80
+  env:
+    - name: DATABASE_URL
+      value: postgres://...
+status:
+  phase: Running
+  replicas: 3
+  readyReplicas: 3
+  conditions:
+    - type: Available
+      status: "True"
+      lastTransitionTime: "2024-01-15T10:00:00Z"
+```
+
+**Controller Logic:**
 ```go
-// Operations must be safe to retry
-func (s *Service) ProcessOrder(ctx context.Context, req *OrderRequest) error {
-    // Check if already processed
-    if s.processed.Has(req.IdempotencyKey) {
-        return nil // Already done
+func (r *LaunchpadAppReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
+    log := log.FromContext(ctx)
+
+    // Fetch the LaunchpadApp
+    var app launchpadv1.LaunchpadApp
+    if err := r.Get(ctx, req.NamespacedName, &app); err != nil {
+        return ctrl.Result{}, client.IgnoreNotFound(err)
     }
 
-    // Process
-    if err := s.doProcess(ctx, req); err != nil {
-        return err
+    // Create or update Deployment
+    if err := r.reconcileDeployment(ctx, &app); err != nil {
+        return ctrl.Result{}, err
     }
 
-    // Mark as processed
-    s.processed.Add(req.IdempotencyKey)
+    // Create or update Service
+    if err := r.reconcileService(ctx, &app); err != nil {
+        return ctrl.Result{}, err
+    }
+
+    // Create or update Ingress
+    if err := r.reconcileIngress(ctx, &app); err != nil {
+        return ctrl.Result{}, err
+    }
+
+    // Update status
+    if err := r.updateStatus(ctx, &app); err != nil {
+        return ctrl.Result{}, err
+    }
+
+    return ctrl.Result{}, nil
+}
+```
+
+**Project Structure:**
+```
+launchpad-operator/
+├── api/
+│   └── v1alpha1/
+│       ├── launchpadapp_types.go
+│       └── zz_generated.deepcopy.go
+├── cmd/
+│   └── main.go
+├── config/
+│   ├── crd/
+│   ├── manager/
+│   ├── rbac/
+│   └── samples/
+├── internal/
+│   └── controller/
+│       ├── launchpadapp_controller.go
+│       └── launchpadapp_controller_test.go
+├── go.mod
+└── Makefile
+```
+
+**Reading:**
+- kubebuilder book (book.kubebuilder.io)
+- "Programming Kubernetes" chapters 1-6
+
+---
+
+### Phase 4: Connect API to Operator (Month 10)
+
+**Build:** API server creates Kubernetes resources, watches for changes
+
+**Features:**
+- API creates LaunchpadApp CRs when deployments triggered
+- Watch Kubernetes for status updates
+- Sync status back to database
+- Real-time status updates via WebSocket
+- Log streaming from pods
+
+**Skills Learned:**
+- Kubernetes client-go informers
+- WebSocket implementation
+- Real-time event streaming
+- Pod log streaming
+- Kubernetes RBAC for API server
+
+**Architecture:**
+```
+User → API Server → Creates LaunchpadApp CR → Operator reconciles → Creates Deployment/Service/Ingress
+                  ← Watches LaunchpadApp status ←
+                  ← Streams pod logs ←
+         ↓
+      WebSocket → Dashboard shows real-time status
+```
+
+**WebSocket Events:**
+```go
+type DeploymentEvent struct {
+    Type      string    `json:"type"` // status_change, log, error
+    AppID     string    `json:"appId"`
+    Status    string    `json:"status,omitempty"`
+    Log       string    `json:"log,omitempty"`
+    Timestamp time.Time `json:"timestamp"`
+}
+
+// Handler for WebSocket connection
+func (h *Handler) StreamDeployment(w http.ResponseWriter, r *http.Request) {
+    conn, err := upgrader.Upgrade(w, r, nil)
+    if err != nil {
+        return
+    }
+    defer conn.Close()
+
+    appID := chi.URLParam(r, "id")
+
+    // Subscribe to events for this app
+    events := h.eventBus.Subscribe(appID)
+    defer h.eventBus.Unsubscribe(appID, events)
+
+    for event := range events {
+        if err := conn.WriteJSON(event); err != nil {
+            return
+        }
+    }
+}
+```
+
+**Log Streaming:**
+```go
+func (s *K8sService) StreamLogs(ctx context.Context, appName, namespace string) (<-chan string, error) {
+    pods, err := s.clientset.CoreV1().Pods(namespace).List(ctx, metav1.ListOptions{
+        LabelSelector: fmt.Sprintf("app=%s", appName),
+    })
+    if err != nil {
+        return nil, err
+    }
+
+    logs := make(chan string)
+
+    for _, pod := range pods.Items {
+        go func(podName string) {
+            req := s.clientset.CoreV1().Pods(namespace).GetLogs(podName, &corev1.PodLogOptions{
+                Follow: true,
+            })
+            stream, err := req.Stream(ctx)
+            if err != nil {
+                return
+            }
+            defer stream.Close()
+
+            scanner := bufio.NewScanner(stream)
+            for scanner.Scan() {
+                logs <- fmt.Sprintf("[%s] %s", podName, scanner.Text())
+            }
+        }(pod.Name)
+    }
+
+    return logs, nil
+}
+```
+
+**Reading:**
+- gorilla/websocket documentation
+- client-go examples (informers, watches)
+- Kubernetes pod logs API
+
+---
+
+### Phase 5: Advanced Operator Features (Month 11)
+
+**Build:** Production-ready operator with advanced patterns
+
+**Features:**
+- Admission webhooks (validate app specs)
+- Mutating webhooks (inject sidecars, defaults)
+- Finalizers for cleanup
+- Horizontal Pod Autoscaler integration
+- Custom metrics
+- Multi-environment support (namespaces)
+
+**Skills Learned:**
+- Admission webhooks
+- Webhook certificate management
+- Finalizer patterns
+- HPA integration
+- Prometheus metrics
+- Multi-tenant patterns
+
+**Validating Webhook:**
+```go
+func (v *LaunchpadAppValidator) ValidateCreate(ctx context.Context, obj runtime.Object) error {
+    app := obj.(*launchpadv1.LaunchpadApp)
+
+    // Validate image is from allowed registry
+    if !strings.HasPrefix(app.Spec.Image, "gcr.io/") &&
+       !strings.HasPrefix(app.Spec.Image, "docker.io/") {
+        return fmt.Errorf("image must be from allowed registry")
+    }
+
+    // Validate replicas within limits
+    if app.Spec.Replicas > 10 {
+        return fmt.Errorf("replicas cannot exceed 10")
+    }
+
+    // Validate resource requests
+    if app.Spec.Resources.Requests.Memory().Value() > 4*1024*1024*1024 {
+        return fmt.Errorf("memory request cannot exceed 4Gi")
+    }
+
     return nil
 }
 ```
 
-**3. Timeouts and Deadlines**
+**Mutating Webhook (Inject Sidecar):**
 ```go
-// Every operation needs a timeout
-func (c *Client) Fetch(ctx context.Context, key string) ([]byte, error) {
-    ctx, cancel := context.WithTimeout(ctx, 5*time.Second)
-    defer cancel()
+func (m *LaunchpadAppMutator) Default(ctx context.Context, obj runtime.Object) error {
+    app := obj.(*launchpadv1.LaunchpadApp)
 
-    return c.doFetch(ctx, key)
-}
-```
+    // Inject default labels
+    if app.Labels == nil {
+        app.Labels = make(map[string]string)
+    }
+    app.Labels["launchpad.io/managed"] = "true"
 
-**4. Circuit Breaker**
-```go
-type CircuitBreaker struct {
-    failures   int32
-    threshold  int32
-    lastFail   time.Time
-    cooldown   time.Duration
-}
-
-func (cb *CircuitBreaker) Call(fn func() error) error {
-    if cb.isOpen() {
-        return ErrCircuitOpen
+    // Set default replicas
+    if app.Spec.Replicas == 0 {
+        app.Spec.Replicas = 1
     }
 
-    if err := fn(); err != nil {
-        cb.recordFailure()
-        return err
-    }
+    // Inject logging sidecar
+    app.Spec.Sidecars = append(app.Spec.Sidecars, Sidecar{
+        Name:  "log-forwarder",
+        Image: "fluent/fluent-bit:latest",
+    })
 
-    cb.reset()
     return nil
 }
 ```
 
-(See Project Progression section for distributed systems projects)
+**Finalizer for External Cleanup:**
+```go
+func (r *LaunchpadAppReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
+    var app launchpadv1.LaunchpadApp
+    if err := r.Get(ctx, req.NamespacedName, &app); err != nil {
+        return ctrl.Result{}, client.IgnoreNotFound(err)
+    }
+
+    // Handle deletion
+    if !app.DeletionTimestamp.IsZero() {
+        if containsString(app.Finalizers, finalizerName) {
+            // Cleanup external resources (DNS, load balancer, etc.)
+            if err := r.cleanupExternalResources(ctx, &app); err != nil {
+                return ctrl.Result{}, err
+            }
+
+            // Notify API server
+            if err := r.notifyAPIServer(ctx, &app, "deleted"); err != nil {
+                log.Error(err, "failed to notify API server")
+            }
+
+            // Remove finalizer
+            app.Finalizers = removeString(app.Finalizers, finalizerName)
+            if err := r.Update(ctx, &app); err != nil {
+                return ctrl.Result{}, err
+            }
+        }
+        return ctrl.Result{}, nil
+    }
+
+    // Add finalizer if not present
+    if !containsString(app.Finalizers, finalizerName) {
+        app.Finalizers = append(app.Finalizers, finalizerName)
+        if err := r.Update(ctx, &app); err != nil {
+            return ctrl.Result{}, err
+        }
+    }
+
+    // Normal reconciliation...
+}
+```
+
+**Reading:**
+- "Kubernetes Operators" book
+- Admission webhook documentation
+- cert-manager source code
+
+---
+
+### Phase 6: CLI & Production Polish (Month 12)
+
+**Build:** CLI tool and production-ready deployment
+
+**Features:**
+- CLI for all API operations (launchpad)
+- `launchpad deploy` - deploy from current directory
+- `launchpad logs` - stream logs
+- `launchpad status` - show deployment status
+- GraphQL API alternative
+- Helm chart for deployment
+- Observability (Prometheus, Grafana, Jaeger)
+
+**Skills Learned:**
+- CLI development (cobra)
+- GraphQL with gqlgen
+- Helm chart creation
+- Prometheus metrics
+- Distributed tracing
+- Production deployment patterns
+
+**CLI Commands:**
+```bash
+# Authentication
+launchpad login
+launchpad logout
+
+# Projects
+launchpad project create myproject
+launchpad project list
+launchpad project switch myproject
+
+# Apps
+launchpad create myapp --image nginx:latest --port 80
+launchpad deploy                    # Deploy from current directory
+launchpad deploy --image v2.0.0     # Deploy specific image
+launchpad status myapp
+launchpad logs myapp -f             # Stream logs
+launchpad rollback myapp            # Rollback to previous version
+
+# Environment
+launchpad env set DATABASE_URL=postgres://...
+launchpad env list
+launchpad env unset DATABASE_URL
+
+# Scaling
+launchpad scale myapp --replicas 5
+```
+
+**CLI Implementation:**
+```go
+var deployCmd = &cobra.Command{
+    Use:   "deploy",
+    Short: "Deploy an application",
+    RunE: func(cmd *cobra.Command, args []string) error {
+        client := api.NewClient(getToken())
+
+        // Read launchpad.yaml from current directory
+        config, err := readConfig("launchpad.yaml")
+        if err != nil {
+            return err
+        }
+
+        // Create deployment
+        deployment, err := client.CreateDeployment(cmd.Context(), config.AppID, &api.DeploymentInput{
+            Image: image,
+        })
+        if err != nil {
+            return err
+        }
+
+        fmt.Printf("Deployment %s created\n", deployment.ID)
+
+        // Stream status updates
+        if follow {
+            return streamDeploymentStatus(cmd.Context(), client, deployment.ID)
+        }
+
+        return nil
+    },
+}
+
+func streamDeploymentStatus(ctx context.Context, client *api.Client, deploymentID string) error {
+    events, err := client.StreamDeployment(ctx, deploymentID)
+    if err != nil {
+        return err
+    }
+
+    spinner := NewSpinner()
+
+    for event := range events {
+        switch event.Type {
+        case "status_change":
+            spinner.Update(event.Status)
+            if event.Status == "running" {
+                spinner.Success("Deployment complete!")
+                return nil
+            } else if event.Status == "failed" {
+                spinner.Fail("Deployment failed")
+                return fmt.Errorf("deployment failed: %s", event.Error)
+            }
+        case "log":
+            fmt.Println(event.Log)
+        }
+    }
+
+    return nil
+}
+```
+
+**Observability Setup:**
+```go
+// Prometheus metrics
+var (
+    deploymentsTotal = promauto.NewCounterVec(prometheus.CounterOpts{
+        Name: "launchpad_deployments_total",
+        Help: "Total number of deployments",
+    }, []string{"status"})
+
+    deploymentDuration = promauto.NewHistogramVec(prometheus.HistogramOpts{
+        Name:    "launchpad_deployment_duration_seconds",
+        Help:    "Deployment duration in seconds",
+        Buckets: []float64{10, 30, 60, 120, 300, 600},
+    }, []string{"app"})
+
+    activeApps = promauto.NewGauge(prometheus.GaugeOpts{
+        Name: "launchpad_active_apps",
+        Help: "Number of active applications",
+    })
+)
+
+// Trace deployment
+func (s *DeploymentService) Deploy(ctx context.Context, input DeployInput) (*Deployment, error) {
+    ctx, span := tracer.Start(ctx, "deploy")
+    defer span.End()
+
+    span.SetAttributes(
+        attribute.String("app.id", input.AppID),
+        attribute.String("image", input.Image),
+    )
+
+    start := time.Now()
+    defer func() {
+        deploymentDuration.WithLabelValues(input.AppID).Observe(time.Since(start).Seconds())
+    }()
+
+    // ... deployment logic
+}
+```
+
+**Reading:**
+- "Powerful Command-Line Applications in Go"
+- "Cloud Native Go" chapters on observability
+- Prometheus client_golang documentation
+- OpenTelemetry Go documentation
 
 ---
 
@@ -1526,7 +1994,7 @@ Each week, deep-read one package:
 
 ## 12-Month Schedule
 
-### Core Path (Months 1-6) - Everyone
+### Core Path (Months 1-6) - Foundations
 
 | Month | Focus | Books | Projects |
 |-------|-------|-------|----------|
@@ -1537,49 +2005,27 @@ Each week, deep-read one package:
 | 5 | Best practices | 100 Go Mistakes (1-50) | Refactor previous projects |
 | 6 | Best practices cont. | 100 Go Mistakes (51-100) | goproxy |
 
-### Track A: Web Development (Months 7-12)
+### Launchpad Project (Months 7-12) - Combined Web + K8s
 
-| Month | Focus | Books | Projects |
-|-------|-------|-------|----------|
-| 7 | Web fundamentals | Let's Go | REST API with chi |
-| 8 | REST APIs | Let's Go Further | Auth, validation, testing |
-| 9 | GraphQL | gqlgen docs, tutorials | GraphQL server |
-| 10 | Real-time | WebSocket tutorials | Chat/collab app |
-| 11 | Microservices | Building Microservices with Go | Multi-service system |
-| 12 | Production | Cloud Native Go | Observability, deployment |
+| Month | Focus | Books | Launchpad Phase |
+|-------|-------|-------|-----------------|
+| 7 | Web fundamentals | Let's Go | **Phase 1:** Foundation API (auth, teams, projects) |
+| 8 | REST APIs | Let's Go Further | **Phase 2:** App Deployment API (apps, deployments, env) |
+| 9 | K8s controllers | kubebuilder book, Programming K8s Ch 1-6 | **Phase 3:** First Kubernetes Controller (CRD, reconciliation) |
+| 10 | K8s + Web integration | Programming K8s Ch 7-10, client-go examples | **Phase 4:** Connect API to Operator (WebSocket, log streaming) |
+| 11 | Advanced operators | Kubernetes Operators book | **Phase 5:** Advanced Features (webhooks, finalizers, HPA) |
+| 12 | Production | Cloud Native Go, CLI book | **Phase 6:** CLI & Production (cobra, observability, Helm) |
 
-### Track B: Cloud Native & Kubernetes (Months 7-12)
+### Skills Progression
 
-| Month | Focus | Books | Projects |
-|-------|-------|-------|----------|
-| 7 | K8s fundamentals | Kubernetes in Action (review) | Deploy apps, understand resources |
-| 8 | client-go | client-go examples | Raw K8s client usage |
-| 9 | Controllers | kubebuilder book | Simple controller |
-| 10 | Operators | Programming Kubernetes | CRD + controller |
-| 11 | Advanced operators | Kubernetes Operators book | External resource operator |
-| 12 | Production | Study cert-manager, ArgoCD | Admission webhooks, multi-cluster |
-
-### Track C: Infrastructure & Distributed Systems (Months 7-12)
-
-| Month | Focus | Books | Projects |
-|-------|-------|-------|----------|
-| 7 | Networking | Network Programming with Go | gocache |
-| 8 | Web services | Let's Go | goapi |
-| 9 | Web services cont. | Let's Go Further | goapi extensions |
-| 10 | Distributed systems | Distributed Services with Go, DDIA | gokv |
-| 11 | Distributed systems | Continue DDIA | goraft |
-| 12 | Production | Cloud Native Go | gomesh or goci |
-
-### Combined Track (Web + K8s) - Recommended for Your Goals
-
-| Month | Focus | Books | Projects |
-|-------|-------|-------|----------|
-| 7 | Web fundamentals | Let's Go | REST API |
-| 8 | REST APIs | Let's Go Further | Production API |
-| 9 | K8s fundamentals | kubebuilder book | Simple controller |
-| 10 | Operators | Programming Kubernetes | CRD + operator |
-| 11 | K8s + Web | Study ArgoCD | Operator with API server |
-| 12 | Production | Cloud Native Go | Full deployment pipeline |
+| Month | Web Skills | K8s Skills |
+|-------|------------|------------|
+| 7 | HTTP handlers, middleware, JWT, PostgreSQL | - |
+| 8 | Domain modeling, validation, OpenAPI | - |
+| 9 | - | CRD design, reconciliation, owner refs, envtest |
+| 10 | WebSocket, real-time events | Informers, watches, pod logs API |
+| 11 | - | Admission webhooks, finalizers, multi-tenant |
+| 12 | CLI (cobra), GraphQL | Helm charts, Prometheus metrics, tracing |
 
 ---
 
@@ -1602,28 +2048,22 @@ You can:
 - Read standard library code
 
 ### Advanced (Months 7-9)
-**Web Track:** Build production APIs, implement auth, design microservices
-**K8s Track:** Build controllers, understand reconciliation, write operators
-**Infra Track:** Implement protocols, build distributed systems
+After Launchpad Phases 1-3, you can:
+- Build production REST APIs with auth
+- Design complex domain models
+- Write Kubernetes controllers
+- Understand reconciliation patterns
+- Test with envtest
 
 ### Cracked (Months 10-12+)
-**Web Track:**
-- Architect complex distributed services
-- Design for scale and resilience
-- Mentor others on API design
-- Ship real-time production systems
-
-**K8s Track:**
+After completing Launchpad, you can:
+- Architect API + operator systems
 - Build production-grade operators
-- Contribute to K8s ecosystem
-- Design multi-cluster architectures
-- Debug complex controller issues
-
-**Infra Track:**
-- Architect distributed databases
-- Implement consensus algorithms
-- Design fault-tolerant systems
-- Push Go to its limits
+- Implement real-time features
+- Add admission webhooks
+- Ship observable, production-ready systems
+- Build CLIs that developers love
+- Contribute to the K8s ecosystem
 
 ---
 
@@ -1704,14 +2144,26 @@ Go is a language that rewards depth over breadth. The syntax is simple, but mast
 3. **Building real systems** - That handle failure, scale, and ship
 4. **Embracing simplicity** - The best Go code looks almost boring
 
-### For Web Developers
-Go's `net/http` package is production-ready out of the box. You don't need a framework to build serious APIs. Start simple, add libraries only when you need them. The ecosystem (chi, gin, gqlgen) is mature and well-documented.
+### The Launchpad Advantage
 
-### For Kubernetes Developers
-You're entering the heart of cloud-native. Kubernetes itself is written in Go, and the tooling (kubebuilder, controller-runtime) is excellent. Understanding the reconciliation pattern will change how you think about systems. Start with kubebuilder, then dig into client-go to understand what's underneath.
+By building one comprehensive project that spans both web development and Kubernetes, you'll:
 
-### For Infrastructure Builders
-This is Go's home turf. Docker, Kubernetes, Terraform, Prometheus - the infrastructure that runs the modern internet is largely written in Go. The people who built these systems understand concurrency, networking, and failure modes deeply.
+- **See how pieces connect** - APIs create CRDs, operators reconcile, WebSockets stream status
+- **Build production patterns** - Auth, validation, webhooks, observability
+- **Have a portfolio piece** - A complete PaaS you can demo and extend
+- **Learn both ecosystems** - Web and K8s skills that work together
+
+Most tutorials teach web OR Kubernetes. Building Launchpad teaches you how real platforms work - where the API server talks to the cluster, where status flows back to users, and where operators do the heavy lifting.
+
+### What Comes After
+
+Once you've completed Launchpad, you can:
+- **Extend it** - Add build pipelines, custom domains, databases-as-a-service
+- **Contribute** - Apply these patterns to open source operators
+- **Build at work** - These skills transfer directly to internal platforms
+- **Go deeper** - Study ArgoCD, Crossplane, or Cluster API for advanced patterns
+
+The infrastructure that runs the modern internet is largely written in Go. Kubernetes, Docker, Terraform, Prometheus - the people who built these systems understand APIs, controllers, and production operations deeply.
 
 Your goal is to join that group.
 
