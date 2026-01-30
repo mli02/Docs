@@ -53,6 +53,28 @@ Each guide includes:
 
 ---
 
+## Specialized Tracks
+
+### AI Infrastructure Track
+
+For those focused on machine learning systems, there's a dedicated track:
+
+| Guide | Focus |
+|-------|-------|
+| [Becoming Cracked at AI Infrastructure](./becoming-cracked-at-ai-infra.md) | ML systems, inference engines, vector databases, ML platforms |
+
+This track uses all three languages with AI-focused projects:
+
+| Month | Language | Project | Focus |
+|-------|----------|---------|-------|
+| 1-6 | Rust | **VectorForge** | Vector database with HNSW, filtering, distributed search |
+| 7-12 | C++ | **TinyInfer** | Inference engine with ONNX, graph optimization, quantization |
+| 13-18 | Go | **ModelHub** | ML platform with K8s operators, traffic management, observability |
+
+By the end, you can build a complete RAG pipeline from scratch.
+
+---
+
 ## Books: The Foundation
 
 ### Systems Programming Fundamentals
