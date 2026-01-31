@@ -7,16 +7,17 @@ A comprehensive guide to mastering systems programming for infrastructure develo
 ## Table of Contents
 
 1. [Core Philosophy](#core-philosophy)
-2. [Language Guides](#language-guides)
-3. [Books: The Foundation](#books-the-foundation)
-4. [Structured Reading Path](#structured-reading-path)
-5. [Tools: Your Arsenal](#tools-your-arsenal)
-6. [Development Setup](#development-setup)
-7. [Project Progression](#project-progression)
-8. [Cross-Language Projects](#cross-language-projects)
-9. [Learning Resources](#learning-resources)
-10. [Daily Habits](#daily-habits)
-11. [18-Month Schedule](#18-month-schedule)
+2. [The Master Plan](#the-master-plan)
+3. [Language Guides](#language-guides)
+4. [Books: The Foundation](#books-the-foundation)
+5. [Structured Reading Path](#structured-reading-path)
+6. [Tools: Your Arsenal](#tools-your-arsenal)
+7. [Development Setup](#development-setup)
+8. [Project Progression](#project-progression)
+9. [Cross-Language Projects](#cross-language-projects)
+10. [Learning Resources](#learning-resources)
+11. [Daily Habits](#daily-habits)
+12. [18-Month Schedule](#18-month-schedule)
 
 ---
 
@@ -28,6 +29,26 @@ Being "cracked" means going beyond syntax to understand **why** things work, not
 - Reading and understanding complex codebases
 - Debugging effectively when things break
 - Writing code that others can maintain
+
+---
+
+## The Master Plan
+
+For those who want to go all-in, there's a 3-year roadmap that ties everything together:
+
+| Document | Description |
+|----------|-------------|
+| [The Master Plan](./becoming-cracked-master-plan.md) | Build a complete AI inference platform from scratch |
+
+This plan integrates all languages and specialized tracks into a single coherent project:
+
+```
+Year 1: TinyKernels (CUDA) → GPU primitives, ML kernels
+Year 2: TinyInfer (C++) + VectorForge (Rust) → Inference engine + Vector DB
+Year 3: TinyKV (Rust) + ModelHub (Go) + Launchpad (Go) → Full platform
+```
+
+By the end, you'll have built an AI cloud from transistors to Kubernetes.
 
 ---
 
@@ -72,6 +93,25 @@ This track uses all three languages with AI-focused projects:
 | 13-18 | Go | **ModelHub** | ML platform with K8s operators, traffic management, observability |
 
 By the end, you can build a complete RAG pipeline from scratch.
+
+### GPU & Parallel Computing Track
+
+For those focused on high-performance computing and GPU programming:
+
+| Guide | Focus |
+|-------|-------|
+| [Becoming Cracked at GPU Computing](./becoming-cracked-at-gpu-computing.md) | CUDA, parallel algorithms, ML kernels, performance optimization |
+
+This track builds from fundamentals to production ML kernels:
+
+| Phase | Focus | Capstone |
+|-------|-------|----------|
+| Months 1-3 | Memory hierarchy, tiling, parallel primitives | Optimized GEMM, reductions |
+| Months 4-6 | Performance analysis, Tensor Cores | TinyKernels Phase 1-2 |
+| Months 7-9 | FlashAttention, fused kernels | TinyKernels Phase 3-4 |
+| Months 10-12 | Multi-GPU, framework integration | Full ML kernel library |
+
+By the end, you can build optimized ML kernels from scratch and integrate them with PyTorch/JAX.
 
 ---
 
